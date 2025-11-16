@@ -1,0 +1,254 @@
+/* ------------------------------------------- */
+/* --- ESTILOS BASE --- */
+/* ------------------------------------------- */
+
+/* Garante o box model correto para todos os elementos */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e8e8e8;
+    color: #212529; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+}
+
+h1 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* --- ESTILO DOS INPUTS (GRADE) --- */
+
+#calculadoraForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Padrão Desktop: Duas colunas */
+    gap: 15px 30px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group {
+    margin-bottom: 0;
+}
+
+/* âncora do Tooltip e estilo do rótulo do formulário */
+label {
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 600;
+    color: #343a40; 
+    position: relative; /* ESSENCIAL para o Tooltip */
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #c8c8c8;
+    border-radius: 2px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #f9f9f9;
+}
+
+input[type="number"] {
+    text-align: right; /* Padrão financeiro */
+}
+
+/* Ajusta o botão para ocupar a largura total no final da grade */
+#calcularBtn {
+    grid-column: 1 / span 2;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#calcularBtn:hover {
+    background-color: #1e7e34;
+}
+
+/* --- ESTILO DOS RESULTADOS (TABELA DE PLANILHA) --- */
+
+.resultado-container {
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.resultado-container h2 {
+    color: #343a40;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #aaa;
+}
+
+table tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Estilo e âncora do rótulo da tabela */
+.label {
+    font-weight: 500;
+    width: 60%;
+    background-color: #f0f0f0;
+    color: #333;
+    position: relative; 
+}
+
+.valor {
+    text-align: right;
+    font-weight: 700;
+}
+
+.status-comprar {
+    color: #1e7e34;
+    font-weight: bold;
+}
+
+.status-aguardar {
+    color: #c82333;
+    font-weight: bold;
+}
+
+/* ------------------------------------------- */
+/* --- ESTILO E LÓGICA DO TOOLTIP --- */
+/* ------------------------------------------- */
+
+.tooltip {
+    visibility: hidden;
+    opacity: 0;
+
+    /* Estilização */
+    width: 300px;
+    background-color: #3e6cb6;
+    color: #fff;
+    text-align: left;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.85em;
+    line-height: 1.4;
+    z-index: 10; 
+
+    /* Posição */
+    position: absolute;
+    left: 105%; 
+    top: 50%;
+    transform: translateY(-50%); 
+
+    transition: opacity 0.3s, visibility 0.3s;
+    pointer-events: none;
+}
+
+/* Seta do Tooltip */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #3e6cb6 transparent transparent; 
+}
+
+/* Torna o tooltip visível no hover */
+label:hover .tooltip,
+.label:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ------------------------------------------- */
+/* --- AJUSTES DE RESPONSIVIDADE (CELULAR) --- */
+/* ------------------------------------------- */
+
+@media (max-width: 600px) {
+    
+    .container {
+        width: 100%; /* Ocupa toda a largura do viewport */
+        padding: 15px;
+        box-shadow: none; /* Remove a sombra para economizar espaço */
+    }
+
+    /* --- FORMULÁRIO --- */
+    #calculadoraForm {
+        /* Muda o grid de 2 colunas para 1 coluna */
+        grid-template-columns: 1fr; 
+        gap: 10px; 
+    }
+
+    /* O botão Calcular volta a ocupar a única coluna disponível */
+    #calcularBtn {
+        grid-column: 1 / span 1; 
+    }
+
+    /* --- TOOLTIP --- */
+    /* Ajusta a posição do tooltip para que ele não saia da tela */
+    .tooltip {
+        width: 90vw; /* Ocupa 90% da largura do viewport */
+        left: 50%; /* Centraliza horizontalmente */
+        top: 105%; /* Move o balão para BAIXO do rótulo */
+        transform: translateX(-50%); /* Centraliza horizontalmente */
+        padding: 10px;
+    }
+
+    /* Ajusta a seta do tooltip para apontar para cima */
+    .tooltip::after {
+        content: "";
+        top: -10px; /* Sobe a seta para ficar no topo do balão */
+        right: 50%;
+        margin-top: 0;
+        border-color: transparent transparent #3e6cb6 transparent; /* Seta apontando para cima */
+        transform: translateX(50%);
+    }
+    
+    /* --- TABELA --- */
+    table td {
+        padding: 8px 5px;
+        word-break: break-word; /* Permite a quebra de palavras longas */
+    }
+    
+    /* Garante que o rótulo ocupe a maior parte, e o valor, a menor */
+    .label {
+        width: 65%; 
+    }
+    
+    .valor {
+        width: 35%;
+    }
+}
