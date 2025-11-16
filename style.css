@@ -73,7 +73,7 @@ input[type="number"] {
 }
 
 input[type="number"] {
-    text-align: right; /* Padrão financeiro */
+    text-align: left; /* Padrão financeiro */
 }
 
 /* Ajusta o botão para ocupar a largura total no final da grade */
@@ -251,4 +251,5 @@ label:hover .tooltip,
     .valor {
         width: 35%;
     }
+
 }
