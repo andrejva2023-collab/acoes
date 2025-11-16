@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Preço Teto - Value Investing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calculadora de Preço Teto - Value Investing</h1>
+        <p>Preencha os dados e clique em "Calcular" para obter o Valor Intrínseco de Graham, o Preço Teto de Bazin e os
+            Múltiplos.</p>
+
+        <form id="calculadoraForm">
+            <div class="input-group">
+                <label for="ativo">
+                    Ativo (Ticker)
+                    <span class="tooltip">O código da ação que você deseja analisar (ex: BBAS3, PETR4).</span>
+                </label>
+                <input type="text" id="ativo" value="BBAS3" required>
+            </div>
+
+            <div class="input-group">
+                <label for="cotacaoAtual">
+                    Cotação Atual (R$)
+                    <span class="tooltip">O preço atual da ação no mercado. Este valor será usado no cálculo.</span>
+                </label>
+                <input type="number" id="cotacaoAtual" value="55.00" step="0.01" required>
+            </div>
+
+            <div class="input-group">
+                <label for="lpa">
+                    LPA (Lucro por Ação)
+                    <span class="tooltip">Lucro líquido que a empresa gerou por cada ação nos últimos 12 meses
+                        (EPS).</span>
+                </label>
+                <input type="number" id="lpa" value="11.17" step="0.01" required>
+            </div>
+
+            <div class="input-group">
+                <label for="vpa">
+                    VPA (Valor Patrimonial por Ação)
+                    <span class="tooltip">Valor contábil dos ativos da empresa por cada ação (Book Value).</span>
+                </label>
+                <input type="number" id="vpa" value="59.06" step="0.01" required>
+            </div>
+
+            <div class="input-group">
+                <label for="dividendoMedio">
+                    Dividendo Médio (5 Anos - R$)
+                    <span class="tooltip">A média dos dividendos pagos por ação nos últimos 5 anos. Essencial para o
+                        cálculo do Preço Teto de Bazin.</span>
+                </label>
+                <input type="number" id="dividendoMedio" value="3.64" step="0.01" required>
+            </div>
+
+            <div class="input-group">
+                <label for="yieldDesejado">
+                    Yield Mínimo Desejado (%)
+                    <span class="tooltip">A taxa mínima de retorno em dividendos que você espera da ação. Recomenda-se
+                        usar 6% ou mais.</span>
+                </label>
+                <input type="number" id="yieldDesejado" value="6" step="0.1" required>
+            </div>
+
+            <button type="submit" id="calcularBtn">Calcular</button>
+        </form>
+
+        <div id="resultado" class="resultado-container" style="display: none;">
+            <h2>Resultados para <span id="resultadoAtivo"></span></h2>
+            <table>
+                <tr>
+                    <td class="label">
+                        Preço Teto (Bazin)
+                        <span class="tooltip">Preço máximo a pagar pela ação para garantir o Yield (Retorno em
+                            Dividendos) Mínimo Desejado. Baseado no Método Bazin/Dividendos.</span>
+                    </td>
+                    <td id="precoTetoBazin" class="valor"></td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        Valor Intrínseco (Graham)
+                        <span class="tooltip">Valor justo (Intrínseco) do ativo, calculado pela fórmula de Benjamin
+                            Graham (VI = sqrt(22.5 * LPA * VPA)).</span>
+                    </td>
+                    <td id="valorIntrinsecoGraham" class="valor"></td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        Margem de Segurança (Graham)
+                        <span class="tooltip">Proteção que você tem ao comprar a ação na cotação atual versus o Preço
+                            Teto de Graham. Quanto maior, mais 'barata' está a ação.</span>
+                    </td>
+                    <td id="margemSeguranca" class="valor"></td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        P/L (Preço/Lucro)
+                        <span class="tooltip">Preço sobre Lucro. Indica quantos anos de lucro a empresa levaria para
+                            'pagar' o preço da ação. Valores baixos (ex: abaixo de 10) sugerem subavaliação.</span>
+                    </td>
+                    <td id="pl" class="valor"></td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        P/VPA (Preço/VPA)
+                        <span class="tooltip">Preço sobre Valor Patrimonial por Ação. Indica o quanto você está pagando
+                            por cada R$ 1,00 de patrimônio da empresa. Valor abaixo de 1 (P/VPA < 1) indica que a ação
+                                está descontada em relação ao valor contábil.</span>
+                    </td>
+                    <td id="pvpa" class="valor"></td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        Status de Compra (Bazin)
+                        <span class="tooltip">Indica a decisão de compra baseada na comparação entre a Cotação Atual e o
+                            Preço Teto de Bazin.</span>
+                    </td>
+                    <td id="statusBazin" class="valor"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
